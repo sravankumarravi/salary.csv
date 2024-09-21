@@ -1,0 +1,25 @@
+#model code
+
+import numpy as np
+import matplotlib.pyplot as plt
+from sklearn.linear_model import LinearRegression
+
+X = np.array([[1], [2], [3], [4], [5]])
+y = np.array([1, 3, 2, 3, 5])
+
+
+model = LinearRegression()
+model.fit(X, y)
+
+
+y_pred = model.predict(X)
+
+plt.figure(figsize=(8, 6))
+plt.scatter(X, y, color='blue', label='Data Points', s=100)  # Larger dots for clarity
+plt.plot(X, y_pred, color='red', linewidth=2, label='Regression Line')  # Thicker line for better visibility
+plt.xlabel('X', fontsize=14)
+plt.ylabel('y', fontsize=14)
+plt.title('Simple Linear Regression', fontsize=16)
+plt.legend()
+plt.grid(True)  # Adding grid for better reference
+plt.show()
