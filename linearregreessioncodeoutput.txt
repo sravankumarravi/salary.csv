@@ -1,0 +1,9 @@
+Unnamed: 0  YearsExperience   Salary
+0           0              1.2  39344.0
+1           1              1.4  46206.0
+2           2              1.6  37732.0
+3           3              2.1  43526.0
+4           4              2.3  39892.0
+Memory usage of dataset: 0.00 MB
+Mean Squared Error: 80598525.7062636
+R-squared: 0.8890590397656207
