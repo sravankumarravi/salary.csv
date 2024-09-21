@@ -1,1 +1,42 @@
 # salary.csv
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+from sklearn.linear_model import SGDRegressor
+from sklearn.metrics import mean_squared_error, r2_score
+
+file_path = '/content/archive.zip'  # Replace with your uploaded file path
+
+data = pd.read_csv(file_path)
+
+print(data.head())
+
+print(f"Memory usage of dataset: {data.memory_usage(deep=True).sum() / 1024**2:.2f} MB")
+
+X = data[['YearsExperience']]  # Independent variable (e.g., years of experience)
+y = data['Salary']             # Dependent variable (e.g., salary)
+
+model = SGDRegressor()
+model.fit(X, y)
+
+y_pred = model.predict(X)
+
+mse = mean_squared_error(y, y_pred)
+r2 = r2_score(y, y_pred)
+
+print(f'Mean Squared Error: {mse}')
+print(f'R-squared: {r2}')
+
+downsample_size = min(1000, len(X))  # Ensure sample size is not larger than the population
+X_sample = X.sample(downsample_size, random_state=42)
+y_sample = y.loc[X_sample.index]
+y_pred_sample = y_pred[X_sample.index]
+
+plt.scatter(X_sample, y_sample, color='blue', label='Actual Salaries')
+plt.scatter(X_sample, y_pred_sample, color='red', label='Predicted Salaries')
+plt.plot(X_sample, y_pred_sample, color='green', linewidth=2, label='Regression Line')
+plt.title('Salary Prediction using Simple Linear Regression (Downsampled)')
+plt.xlabel('Experience (Years)')
+plt.ylabel('Salary')
+plt.legend()
+plt.show()
